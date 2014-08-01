@@ -1,2 +1,0 @@
-piwik-performance-monitor
-=========================
