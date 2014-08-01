@@ -1,0 +1,8 @@
+{
+    "PerformanceMonitor": {
+        "Description": "Anzahl Besucher in den letzten 30 Minuten (verglichen mit dem Maximum der letzten 30 Tage)",
+        "PerformanceSummary": "Performance Übersicht",
+        "TopLinkTooltip": "Zeigt eine Übersicht der aktuellen Performance aller Websites",
+        "WidgetName": "Performance Monitor"
+    }
+}
