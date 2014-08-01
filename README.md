@@ -10,6 +10,8 @@ This plugin is inspired by the [piwik barometer plugin](https://github.com/halfd
 
 ## Documentation
 
+(Tested with piwik 2.4.1, but supposed to run with older versions)
+
 1. Clone the plugin into the plugins directory of your Piwik installation.
 
    ```
