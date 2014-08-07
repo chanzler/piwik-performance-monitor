@@ -23,6 +23,8 @@ This plugin is inspired by the [piwik barometer plugin](https://github.com/halfd
 
 3. You will now find the widget under the Live! section.
 
+**This plugin should run fine for installations with up to 100.000 page impressions per day, but if you run a very large piwik installation and have performance issues with this plugin, please contact me - there is a solution for this.**
+
 ## Contribute
 
 If you are interested in contributing to this plugin, feel free to send pull requests!
