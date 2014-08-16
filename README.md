@@ -8,9 +8,13 @@ The widget will show the performance index of a site that auto-refresh every 30 
 
 This plugin is inspired by the [piwik barometer plugin](https://github.com/halfdan/piwik-barometer-plugin) and uses a lightly modified jQuery-Dynameter (original by [Tzechiu Lei](http://tze1.com/dynameter/).
 
-## Documentation
+**This plugin should run fine with installations with up to 100.000 page impressions per day. If you run a very large piwik installation and have performance issues with this plugin, please contact me - there is a solution for this. I have it up and running in an installation with more than 5 million visits per day.**
 
-(Tested with piwik 2.4.1, but supposed to run with older versions)
+(Tested with piwik 2.5.0, but supposed to run with older versions)
+
+## Installation
+
+Install it via Piwik Marketplace OR install manually:
 
 1. Clone the plugin into the plugins directory of your Piwik installation.
 
@@ -23,7 +27,24 @@ This plugin is inspired by the [piwik barometer plugin](https://github.com/halfd
 
 3. You will now find the widget under the Live! section.
 
-**This plugin should run fine for installations with up to 100.000 page impressions per day, but if you run a very large piwik installation and have performance issues with this plugin, please contact me - there is a solution for this.**
+## FAQ
+
+Here is a list of features that are included in this project:
+
+* Define new widget ("Performance Monitor")
+* Add an item to the top navigation ("Performance overview") which displays the performance monitor widget for all your configured sites.
+
+## Changelog
+
+* 0.1.0 First Beta
+
+## License
+
+GPL v3 or later
+
+## Support
+
+* Please direct any feedback to [frank@intersolve.de](mailto:frank@intersolve.de)
 
 ## Contribute
 
