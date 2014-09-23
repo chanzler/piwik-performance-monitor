@@ -82,7 +82,7 @@
                 // Skip init if settings are invalid.
                 if (settings.value < settings.min ||
                     settings.value > settings.max ||
-                    settings.min >= settings.max) {
+                    settings.min > settings.max) {
                     throw new Error("DynaMeter initialization failed -- invalid value/min/max settings.");
                 }
                 var currClrRef;
