@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\PerformanceMonitor;
 
 use Piwik\API\Request;
+use \DateTimeZone;
 
 /**
  * API for plugin PerformanceMonitor
@@ -31,6 +32,15 @@ class API extends \Piwik\Plugin\API {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
         $lastMinutes = (int)$lastMinutes;
         $lastDays = (int)$lastDays;
+		if (ini_get('date.timezone')) {
+			$dateTimeZoneDEF = new \DateTimeZone(ini_get('date.timezone'));
+		} else {
+			$dateTimeZoneDEF = new \DateTimeZone(date_default_timezone_get());
+		}
+		$dateTimeZoneUTC = new \DateTimeZone("UTC");
+		$dateTimeUTC = new \DateTime("now", $dateTimeZoneUTC);
+		$dateTimeDEF = new \DateTime("now", $dateTimeZoneDEF);
+		$timeZoneDiff = $dateTimeZoneDEF->getOffset($dateTimeDEF)-$dateTimeZoneUTC->getOffset($dateTimeUTC);
 
         $sql = "SELECT MAX(g.concurrent) AS maxvisit
                 FROM (
@@ -51,7 +61,7 @@ class API extends \Piwik\Plugin\API {
                 AND DATE_SUB(NOW(), INTERVAL ? MINUTE) < visit_last_action_time";
 
         $visits = \Piwik\Db::fetchOne($sql, array(
-            $idSite, $lastMinutes+120
+            $idSite, $lastMinutes+($timeZoneDiff/60)
         ));
 
         return array(
