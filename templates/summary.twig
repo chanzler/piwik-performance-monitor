@@ -6,7 +6,7 @@
 <p>{{ description }}</p><br /><br />
     <div id="main">
 {% for site in sites %}
-<div class="widgetIframe"><div class="frameHeader">{{ site.name }}</div><iframe width="100%" height="350" src="index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=PerformanceMonitor&actionToWidgetize=index&idSite={{ site.id }}&period=day&date=today&disableLink=1&widget=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
+<div class="widgetIframe"><div class="frameHeader"><a href="index.php?module=CoreHome&action=index&date=yesterday&period=day&idSite={{ site.id }}">{{ site.name }}</a></div><iframe width="100%" height="350" src="index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=PerformanceMonitor&actionToWidgetize=index&idSite={{ site.id }}&period=day&date=today&disableLink=1&widget=1" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
     {% else %}
         <li><em>no Sites found</em></li>
     {% endfor %}
