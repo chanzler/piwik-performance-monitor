@@ -10,7 +10,7 @@ This plugin is inspired by the [piwik barometer plugin](https://github.com/halfd
 
 **This plugin should run fine with installations with up to 100.000 page impressions per day. If you run a very large piwik installation and have performance issues with this plugin, please contact me - there is a solution for this. I have it up and running in an installation with more than 5 million visits per day.**
 
-(Tested with piwik 2.5.0, but supposed to run with older versions)
+(Tested with piwik 2.7.0, but supposed to run with older versions)
 
 ## Installation
 
@@ -36,7 +36,14 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
-* 0.1.0 First Beta
+### 0.2.0 Second Beta
+* fixed the timezone bug
+* fixed several minor bugs
+* overview has now links to the dashboards
+* added settings for configuration
+* 
+### 0.1.0 First Beta
+* initial release
 
 ## License
 

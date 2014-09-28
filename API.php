@@ -10,6 +10,10 @@ namespace Piwik\Plugins\PerformanceMonitor;
 
 use Piwik\API\Request;
 use \DateTimeZone;
+use Piwik\Settings\SystemSetting;
+use Piwik\Settings\UserSetting;
+use Piwik\Settings\Manager as SettingsManager;
+
 
 /**
  * API for plugin PerformanceMonitor
@@ -27,11 +31,12 @@ class API extends \Piwik\Plugin\API {
      * @param int $lastDays
      * @return int
      */
-    public static function getVisitorCounter($idSite, $lastMinutes = 30, $lastDays = 30)
+    public static function getVisitorCounter($idSite, $lastMinutes = 30)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
+		$settings = new Settings('PerformanceMonitor');
         $lastMinutes = (int)$lastMinutes;
-        $lastDays = (int)$lastDays;
+        $lastDays = (int)$settings->lastDays->getValue();
 		if (ini_get('date.timezone')) {
 			$dateTimeZoneDEF = new \DateTimeZone(ini_get('date.timezone'));
 		} else {
@@ -70,15 +75,15 @@ class API extends \Piwik\Plugin\API {
         );
     }
 
-    public static function getMaxVisitors($idSite, $lastMinutes = 30, $lastDays = 30)
+    public static function getMaxVisitors($idSite, $lastMinutes = 30)
     {
-	$tmp = API::getVisitorCounter($idSite, $lastMinutes, $lastDays);
+	$tmp = API::getVisitorCounter($idSite, $lastMinutes);
         return $tmp['maxvisits'];
     }
 
-    public static function getCurrentVisitors($idSite, $lastMinutes = 30, $lastDays = 30)
+    public static function getCurrentVisitors($idSite, $lastMinutes = 30)
     {
-	$tmp = API::getVisitorCounter($idSite, $lastMinutes, $lastDays);
+	$tmp = API::getVisitorCounter($idSite, $lastMinutes);
         return $tmp['visits'];
     }
 

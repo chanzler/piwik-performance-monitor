@@ -52,7 +52,7 @@ $(function() {
     };
 
     var exports = require("piwik/PerformanceMonitor");
-    exports.initSimpleRealtimeVisitorWidget = function () {
+    exports.initSimpleRealtimeVisitorWidget = function (refreshInterval) {
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
@@ -80,7 +80,7 @@ $(function() {
             });
             $('.dynameter-widget').each(function() {
                 var $this = $(this),
-                   refreshAfterXSecs = 30;
+                   refreshAfterXSecs = refreshInterval;
                 setTimeout(function() { refreshWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
             });
         });
