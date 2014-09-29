@@ -10,93 +10,49 @@ namespace Piwik\Plugins\PerformanceMonitor;
 
 use Piwik\Settings\SystemSetting;
 use Piwik\Settings\UserSetting;
+use Piwik\Piwik;
 
 /**
- * Defines Settings for ExampleSettingsPlugin.
- *
- * Usage like this:
- * $settings = new Settings('ExampleSettingsPlugin');
- * $settings->autoRefresh->getValue();
- * $settings->metric->getValue();
+ * Defines Settings for PerformanceMonitorPlugin.
  *
  */
 class Settings extends \Piwik\Plugin\Settings
 {
-    /** @var UserSetting */
-    public $autoRefresh;
-
     /** @var SystemSetting */
     public $refreshInterval;
 
     /** @var SystemSetting */
-    public $lastDays;
+    public $periodOfTime;
 	
-    /** @var UserSetting */
-    public $color;
-
     /** @var SystemSetting */
-    public $metric;
-
-    /** @var SystemSetting */
-    public $browsers;
-
-    /** @var SystemSetting */
-    public $description;
-
-    /** @var SystemSetting */
-    public $password;
+    public $sites;
 
     protected function init()
     {
-        $this->setIntroduction('Here you can specify the settings for this plugin.');
-
-        // User setting --> checkbox converted to bool
-        $this->createAutoRefreshSetting();
+        $this->setIntroduction(Piwik::translate('PerformanceMonitor_SettingsIntroduction'));
 
         // User setting --> textbox converted to int defining a validator and filter
         $this->createRefreshIntervalSetting();
 
         // User setting --> textbox converted to int defining a validator and filter
-        $this->createLastDaysSetting();
-
-        // User setting --> readio
-        $this->createColorSetting();
-
-        // System setting --> allows selection of a single value
-        $this->createMetricSetting();
+        $this->createPeriodOfTimeSetting();
 
         // System setting --> allows selection of multiple values
-        $this->createBrowsersSetting();
+        $this->createSitesSetting();
 
-        // System setting --> textarea
-        $this->createDescriptionSetting();
-
-        // System setting --> textarea
-        $this->createPasswordSetting();
-    }
-
-    private function createAutoRefreshSetting()
-    {
-        $this->autoRefresh        = new UserSetting('autoRefresh', 'Auto refresh');
-        $this->autoRefresh->type  = static::TYPE_BOOL;
-        $this->autoRefresh->uiControlType = static::CONTROL_CHECKBOX;
-        $this->autoRefresh->description   = 'If enabled, the value will be automatically refreshed depending on the specified interval';
-        $this->autoRefresh->defaultValue  = false;
-
-        $this->addSetting($this->autoRefresh);
     }
 
     private function createRefreshIntervalSetting()
     {
-        $this->refreshInterval        = new SystemSetting('refreshInterval', 'Refresh Interval');
+        $this->refreshInterval        = new SystemSetting('refreshInterval', Piwik::translate('PerformanceMonitor_SettingsRefreshInterval'));
         $this->refreshInterval->type  = static::TYPE_INT;
         $this->refreshInterval->uiControlType = static::CONTROL_TEXT;
         $this->refreshInterval->uiControlAttributes = array('size' => 3);
-        $this->refreshInterval->description     = 'Defines how often the value should be updated';
-        $this->refreshInterval->inlineHelp      = 'Enter a number which is >= 15';
+        $this->refreshInterval->description     = Piwik::translate('PerformanceMonitor_SettingsRefreshIntervalDescription');
+        $this->refreshInterval->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsRefreshIntervalHelp');
         $this->refreshInterval->defaultValue    = '30';
         $this->refreshInterval->validate = function ($value, $setting) {
-            if ($value < 15) {
+            if ($value < 1) {
                 throw new \Exception('Value is invalid');
             }
         };
@@ -104,82 +60,39 @@ class Settings extends \Piwik\Plugin\Settings
         $this->addSetting($this->refreshInterval);
     }
 
-    private function createLastDaysSetting()
+    private function createPeriodOfTimeSetting()
     {
-        $this->lastDays        = new SystemSetting('lastDays', 'Last Days');
-        $this->lastDays->type  = static::TYPE_INT;
-        $this->lastDays->uiControlType = static::CONTROL_TEXT;
-        $this->lastDays->uiControlAttributes = array('size' => 3);
-        $this->lastDays->description     = 'Defines how often the value should be updated';
-        $this->lastDays->inlineHelp      = 'Enter a number which is >= 15';
-        $this->lastDays->defaultValue    = '1';
-        $this->lastDays->validate = function ($value, $setting) {
-            if ($value > 30) {
+        $this->periodOfTime        = new SystemSetting('periodOfTime', Piwik::translate('PerformanceMonitor_SettingsPOT'));
+        $this->periodOfTime->type  = static::TYPE_INT;
+        $this->periodOfTime->uiControlType = static::CONTROL_TEXT;
+        $this->periodOfTime->uiControlAttributes = array('size' => 3);
+        $this->periodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsPOTDescription');
+        $this->periodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsPOTHelp');
+        $this->periodOfTime->defaultValue    = '1';
+        $this->periodOfTime->validate = function ($value, $setting) {
+            if ($value > 30 && $value < 1) {
                 throw new \Exception('Value is invalid');
             }
         };
 
-        $this->addSetting($this->lastDays);
+        $this->addSetting($this->periodOfTime);
     }
 
-    private function createColorSetting()
+    private function createSitesSetting()
     {
-        $this->color        = new UserSetting('color', 'Color');
-        $this->color->uiControlType = static::CONTROL_RADIO;
-        $this->color->description   = 'Pick your favourite color';
-        $this->color->availableValues  = array('red' => 'Red', 'blue' => 'Blue', 'green' => 'Green');
+    	$this->sites        = new SystemSetting('sites', Piwik::translate('PerformanceMonitor_SettingsSites'));
+        $this->sites->type  = static::TYPE_ARRAY;
+        $this->sites->uiControlType = static::CONTROL_MULTI_SELECT;
+        $this->sites->availableValues = array();
+        $this->sites->description = Piwik::translate('PerformanceMonitor_SettingsSitesDescription');
+        $this->sites->defaultValue = array();
+        foreach (API::getSites() as &$site)
+        {
+        	$this->sites->availableValues[$site["id"]] = $site["name"];
+        	array_push ($this->sites->defaultValue, $site["name"]);
+        }
+        $this->sites->readableByCurrentUser = true;
 
-        $this->addSetting($this->color);
-    }
-
-    private function createMetricSetting()
-    {
-        $this->metric        = new SystemSetting('metric', 'Metric to display');
-        $this->metric->type  = static::TYPE_STRING;
-        $this->metric->uiControlType = static::CONTROL_SINGLE_SELECT;
-        $this->metric->availableValues  = array('nb_visits' => 'Visits', 'nb_actions' => 'Actions', 'visitors' => 'Visitors');
-        $this->metric->introduction  = 'Only Super Users can change the following settings:';
-        $this->metric->description   = 'Choose the metric that should be displayed in the browser tab';
-        $this->metric->defaultValue  = 'nb_visits';
-        $this->metric->readableByCurrentUser = true;
-
-        $this->addSetting($this->metric);
-    }
-
-    private function createBrowsersSetting()
-    {
-        $this->browsers        = new SystemSetting('browsers', 'Supported Browsers');
-        $this->browsers->type  = static::TYPE_ARRAY;
-        $this->browsers->uiControlType = static::CONTROL_MULTI_SELECT;
-        $this->browsers->availableValues  = array('firefox' => 'Firefox', 'chromium' => 'Chromium', 'safari' => 'safari');
-        $this->browsers->description   = 'The value will be only displayed in the following browsers';
-        $this->browsers->defaultValue  = array('firefox', 'chromium', 'safari');
-        $this->browsers->readableByCurrentUser = true;
-
-        $this->addSetting($this->browsers);
-    }
-
-    private function createDescriptionSetting()
-    {
-        $this->description = new SystemSetting('description', 'Description for value');
-        $this->description->readableByCurrentUser = true;
-        $this->description->uiControlType = static::CONTROL_TEXTAREA;
-        $this->description->description   = 'This description will be displayed next to the value';
-        $this->description->defaultValue  = "This is the value: \nAnother line";
-
-        $this->addSetting($this->description);
-    }
-
-    private function createPasswordSetting()
-    {
-        $this->password = new SystemSetting('password', 'API password');
-        $this->password->readableByCurrentUser = true;
-        $this->password->uiControlType = static::CONTROL_PASSWORD;
-        $this->password->description   = 'Password for the 3rd API where we fetch the value';
-        $this->password->transform     = function ($value) {
-            return sha1($value . 'salt');
-        };
-
-        $this->addSetting($this->password);
+        $this->addSetting($this->sites);
     }
 }

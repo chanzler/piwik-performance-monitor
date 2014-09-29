@@ -36,8 +36,8 @@ class API extends \Piwik\Plugin\API {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('PerformanceMonitor');
         $lastMinutes = (int)$lastMinutes;
-        $lastDays = (int)$settings->lastDays->getValue();
-		if (ini_get('date.timezone')) {
+        $periodOfTime = (int)$settings->periodOfTime->getValue();
+        if (ini_get('date.timezone')) {
 			$dateTimeZoneDEF = new \DateTimeZone(ini_get('date.timezone'));
 		} else {
 			$dateTimeZoneDEF = new \DateTimeZone(date_default_timezone_get());
@@ -57,7 +57,7 @@ class API extends \Piwik\Plugin\API {
         ) g";
 
         $maxvisits = \Piwik\Db::fetchOne($sql, array(
-            $lastDays, $idSite, $lastMinutes * 60
+            $periodOfTime, $idSite, $lastMinutes * 60
         ));
 
         $sql = "SELECT COUNT(*)

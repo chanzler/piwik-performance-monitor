@@ -44,14 +44,25 @@ class Controller extends \Piwik\Plugin\Controller
     public function summary()
     {
         Piwik::checkUserHasSomeViewAccess();
-
+        $settings = new Settings('PerformanceMonitor');
+        
         $date   = Common::getRequestVar('date', 'today');
         $period = Common::getRequestVar('period', 'day');
 
         $view = new View('@PerformanceMonitor/summary.twig');
         $this->setGeneralVariablesView($view);
-        $view->sites = API::getSites();
-        $view->pluginName = Piwik::translate('PerformanceMonitor_WidgetName');
+       	$view->configuredSites = array();
+       	foreach (API::getSites() as &$site)
+        {
+       		foreach ($settings->sites->getValue() as &$confSite)
+        	{
+        		if ($site['id'] == $confSite)
+	        	{
+    	    		array_push($view->configuredSites, $site);
+           		}
+        	}
+        }
+       	$view->pluginName = Piwik::translate('PerformanceMonitor_WidgetName');
         $view->description = Piwik::translate('PerformanceMonitor_Description');
 
         return $view->render();
