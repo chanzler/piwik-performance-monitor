@@ -45,6 +45,7 @@ class Settings extends \Piwik\Plugin\Settings
     private function createRefreshIntervalSetting()
     {
         $this->refreshInterval        = new SystemSetting('refreshInterval', Piwik::translate('PerformanceMonitor_SettingsRefreshInterval'));
+        $this->refreshInterval->readableByCurrentUser = true;
         $this->refreshInterval->type  = static::TYPE_INT;
         $this->refreshInterval->uiControlType = static::CONTROL_TEXT;
         $this->refreshInterval->uiControlAttributes = array('size' => 3);
@@ -63,6 +64,7 @@ class Settings extends \Piwik\Plugin\Settings
     private function createPeriodOfTimeSetting()
     {
         $this->periodOfTime        = new SystemSetting('periodOfTime', Piwik::translate('PerformanceMonitor_SettingsPOT'));
+        $this->periodOfTime->readableByCurrentUser = true;
         $this->periodOfTime->type  = static::TYPE_INT;
         $this->periodOfTime->uiControlType = static::CONTROL_TEXT;
         $this->periodOfTime->uiControlAttributes = array('size' => 3);
@@ -81,6 +83,7 @@ class Settings extends \Piwik\Plugin\Settings
     private function createSitesSetting()
     {
     	$this->sites        = new SystemSetting('sites', Piwik::translate('PerformanceMonitor_SettingsSites'));
+		$this->sites->readableByCurrentUser = true;
         $this->sites->type  = static::TYPE_ARRAY;
         $this->sites->uiControlType = static::CONTROL_MULTI_SELECT;
         $this->sites->availableValues = array();
