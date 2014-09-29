@@ -84,12 +84,12 @@ class Settings extends \Piwik\Plugin\Settings
         $this->sites->type  = static::TYPE_ARRAY;
         $this->sites->uiControlType = static::CONTROL_MULTI_SELECT;
         $this->sites->availableValues = array();
-        $this->sites->description = Piwik::translate('PerformanceMonitor_SettingsSitesDescription');
-        $this->sites->defaultValue = array();
+        $this->sites->description     = Piwik::translate('PerformanceMonitor_SettingsSitesDescription');
+        $this->sites->defaultValue    = array();
         foreach (API::getSites() as &$site)
         {
         	$this->sites->availableValues[$site["id"]] = $site["name"];
-        	array_push ($this->sites->defaultValue, $site["name"]);
+        	array_push ($this->sites->defaultValue, $site["id"]);
         }
         $this->sites->readableByCurrentUser = true;
 
