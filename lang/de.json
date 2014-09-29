@@ -9,7 +9,7 @@
         "SettingsPOTHelp": "Geben Sie eine Zahl zwischen 1 und 30 an",
         "SettingsPOT": "Webseiten in Übersicht",
         "SettingsPOTDescription": "Legt fest, welche Webseiten in der Übersicht angezeigt werden.",
-        "Description": "Anzahl Besucher in den letzten 30 Minuten (verglichen mit dem Maximum der letzten 30 Tage)",
+        "Description": "Anzahl Besucher in den letzten 30 Minuten (verglichen mit dem Maximum des konfigurierten Zeitraums)",
         "PerformanceSummary": "Performance Übersicht",
         "TopLinkTooltip": "Zeigt eine Übersicht der aktuellen Performance aller Websites",
         "WidgetName": "Performance Monitor"
