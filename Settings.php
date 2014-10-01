@@ -22,7 +22,10 @@ class Settings extends \Piwik\Plugin\Settings
     public $refreshInterval;
 
     /** @var SystemSetting */
-    public $periodOfTime;
+    public $currPeriodOfTime;
+	
+    /** @var SystemSetting */
+    public $histPeriodOfTime;
 	
     /** @var SystemSetting */
     public $sites;
@@ -31,12 +34,15 @@ class Settings extends \Piwik\Plugin\Settings
     {
         $this->setIntroduction(Piwik::translate('PerformanceMonitor_SettingsIntroduction'));
 
-        // User setting --> textbox converted to int defining a validator and filter
+        // System setting --> textbox converted to int defining a validator and filter
         $this->createRefreshIntervalSetting();
 
-        // User setting --> textbox converted to int defining a validator and filter
-        $this->createPeriodOfTimeSetting();
-
+        // System setting --> textbox converted to int defining a validator and filter
+        $this->createCurrentPeriodOfTimeSetting();
+        
+        // System setting --> textbox converted to int defining a validator and filter
+        $this->createHistoricalPeriodOfTimeSetting();
+        
         // System setting --> allows selection of multiple values
         $this->createSitesSetting();
 
@@ -61,23 +67,42 @@ class Settings extends \Piwik\Plugin\Settings
         $this->addSetting($this->refreshInterval);
     }
 
-    private function createPeriodOfTimeSetting()
+    private function createCurrentPeriodOfTimeSetting()
     {
-        $this->periodOfTime        = new SystemSetting('periodOfTime', Piwik::translate('PerformanceMonitor_SettingsPOT'));
-        $this->periodOfTime->readableByCurrentUser = true;
-        $this->periodOfTime->type  = static::TYPE_INT;
-        $this->periodOfTime->uiControlType = static::CONTROL_TEXT;
-        $this->periodOfTime->uiControlAttributes = array('size' => 3);
-        $this->periodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsPOTDescription');
-        $this->periodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsPOTHelp');
-        $this->periodOfTime->defaultValue    = '1';
-        $this->periodOfTime->validate = function ($value, $setting) {
+        $this->currPeriodOfTime        = new SystemSetting('currPeriodOfTime', Piwik::translate('PerformanceMonitor_SettingsCPOT'));
+        $this->currPeriodOfTime->readableByCurrentUser = true;
+        $this->currPeriodOfTime->type  = static::TYPE_INT;
+        $this->currPeriodOfTime->uiControlType = static::CONTROL_TEXT;
+        $this->currPeriodOfTime->uiControlAttributes = array('size' => 3);
+        $this->currPeriodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsCPOTDescription');
+        $this->currPeriodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsCPOTHelp');
+        $this->currPeriodOfTime->defaultValue    = '5';
+        $this->currPeriodOfTime->validate = function ($value, $setting) {
             if ($value > 30 && $value < 1) {
                 throw new \Exception('Value is invalid');
             }
         };
 
-        $this->addSetting($this->periodOfTime);
+        $this->addSetting($this->currPeriodOfTime);
+    }
+
+    private function createHistoricalPeriodOfTimeSetting()
+    {
+        $this->histPeriodOfTime        = new SystemSetting('histPeriodOfTime', Piwik::translate('PerformanceMonitor_SettingsHPOT'));
+        $this->histPeriodOfTime->readableByCurrentUser = true;
+        $this->histPeriodOfTime->type  = static::TYPE_INT;
+        $this->histPeriodOfTime->uiControlType = static::CONTROL_TEXT;
+        $this->histPeriodOfTime->uiControlAttributes = array('size' => 3);
+        $this->histPeriodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsHPOTDescription');
+        $this->histPeriodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsHPOTHelp');
+        $this->histPeriodOfTime->defaultValue    = '1';
+        $this->histPeriodOfTime->validate = function ($value, $setting) {
+            if ($value > 30 && $value < 1) {
+                throw new \Exception('Value is invalid');
+            }
+        };
+
+        $this->addSetting($this->histPeriodOfTime);
     }
 
     private function createSitesSetting()

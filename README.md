@@ -38,6 +38,8 @@ Here is a list of features that are included in this project:
 ###Configuration
 *Refresh interval*: Defines how often the widgets will be updated. Every 30 seconds is a good value to choose.
 
+*Measurement period*: Defines the measurement period in minutes. 5 minutes is a good value to choose.
+
 *Comparison period*: Defines the period (x * 24h) the last 30 minutes are compared to. A good value for small sites with more or less static content is 30. For sites with peak days on weekends for example 1 will be a good value. 1 is also a good value for very big sites with a lot of traffic. You will have to play around with this value a little bit and figure out whalt will fit your needs.
 
 *Sites in overview*: Defines which sites are displayed in the overview.  

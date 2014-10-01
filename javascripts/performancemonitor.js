@@ -30,7 +30,7 @@ $(function() {
             var visitors = data['visits'];
             var maxvisitors = data['maxvisits'];
             $(element).find('.dynameter').removeClass('dm-wrapperDiv');
-	    var $myMeter = null;
+            var $myMeter = null;
             $myMeter = $(element).find('.dynameter').dynameter({
                 label: '',
                 min: 0,
@@ -43,7 +43,10 @@ $(function() {
                 value: visitors,
                 unit: 'Performance Index'
             });
-	    $myMeter.changeValue(visitors, maxvisitors, 0);
+            $myMeter.changeValue(visitors, maxvisitors, 0);
+            myOdometer = new Odometer({ el: $('.odometer')[0], theme: 'default', value: visitors });
+            myOdometer.render()
+            myOdometer.update(visitors);
             $(element).find('.legend-max', element).text(maxvisitors);
             // schedule another request
             setTimeout(function () { refreshWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
@@ -66,7 +69,7 @@ $(function() {
 
             var visitors = data['visits'];
             var maxvisitors = data['maxvisits'];
-	    $('.dynameter').dynameter({
+            $('.dynameter').dynameter({
                 label: '',
                 min: 0,
                 max: maxvisitors,
@@ -78,6 +81,8 @@ $(function() {
                 value: visitors,
                 unit: 'Performance Index'
             });
+            myOdometer = new Odometer({ el: $('.odometer')[0], theme: 'default', value: visitors });
+            myOdometer.render()
             $('.dynameter-widget').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;

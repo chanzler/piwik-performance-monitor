@@ -30,11 +30,13 @@ class PerformanceMonitor extends \Piwik\Plugin
     {
         $jsFiles[] = 'plugins/PerformanceMonitor/javascripts/performancemonitor.js';
         $jsFiles[] = 'plugins/PerformanceMonitor/javascripts/jquery.dynameter.js';
+        $jsFiles[] = 'plugins/PerformanceMonitor/javascripts/odometer.min.js';
     }
 
     public function getStylesheetFiles(&$stylesheets)
     {
         $stylesheets[] = "plugins/PerformanceMonitor/stylesheets/performancemonitor.css";
+        $stylesheets[] = "plugins/PerformanceMonitor/stylesheets/odometer-theme-default.css";
     }
 
     /**
