@@ -76,7 +76,7 @@ class Settings extends \Piwik\Plugin\Settings
         $this->currPeriodOfTime->uiControlAttributes = array('size' => 3);
         $this->currPeriodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsCPOTDescription');
         $this->currPeriodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsCPOTHelp');
-        $this->currPeriodOfTime->defaultValue    = '5';
+        $this->currPeriodOfTime->defaultValue    = '30';
         $this->currPeriodOfTime->validate = function ($value, $setting) {
             if ($value > 30 && $value < 1) {
                 throw new \Exception('Value is invalid');
@@ -95,7 +95,7 @@ class Settings extends \Piwik\Plugin\Settings
         $this->histPeriodOfTime->uiControlAttributes = array('size' => 3);
         $this->histPeriodOfTime->description     = Piwik::translate('PerformanceMonitor_SettingsHPOTDescription');
         $this->histPeriodOfTime->inlineHelp      = Piwik::translate('PerformanceMonitor_SettingsHPOTHelp');
-        $this->histPeriodOfTime->defaultValue    = '1';
+        $this->histPeriodOfTime->defaultValue    = '30';
         $this->histPeriodOfTime->validate = function ($value, $setting) {
             if ($value > 30 && $value < 1) {
                 throw new \Exception('Value is invalid');
