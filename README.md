@@ -49,7 +49,7 @@ Here is a list of features that are included in this project:
 ### 0.2.0 Second Beta
 * made the plugin configurable by settings
 * performance overview now links to the dashboards
-* fixed the timezone bug
+* fixed the timezone bug (configure timezone for each site properly)
 * fixed several minor bugs
 
 ### 0.1.0 First Beta

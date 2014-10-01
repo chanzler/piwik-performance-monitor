@@ -13,6 +13,7 @@ use \DateTimeZone;
 use Piwik\Settings\SystemSetting;
 use Piwik\Settings\UserSetting;
 use Piwik\Settings\Manager as SettingsManager;
+use Piwik\Site;
 
 
 /**
@@ -22,6 +23,19 @@ use Piwik\Settings\Manager as SettingsManager;
  */
 class API extends \Piwik\Plugin\API {
 
+	public static function get_timezone_offset($remote_tz, $origin_tz = null) {
+    		if($origin_tz === null) {
+        		if(!is_string($origin_tz = date_default_timezone_get())) {
+            			return false; // A UTC timestamp was returned -- bail out!
+        		}
+    		}
+    		$origin_dtz = new \DateTimeZone($origin_tz);
+    		$remote_dtz = new \DateTimeZone($remote_tz);
+    		$origin_dt = new \DateTime("now", $origin_dtz);
+    		$remote_dt = new \DateTime("now", $remote_dtz);
+    		$offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
+    		return $offset;
+	}
     /**
      * Retrieves visit count from lastMinutes and peak visit count from lastDays
      * in lastMinutes interval for site with idSite.
@@ -35,17 +49,10 @@ class API extends \Piwik\Plugin\API {
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('PerformanceMonitor');
+        $timeZone = (int)$settings->currPeriodOfTime->getValue();
         $lastMinutes = (int)$settings->currPeriodOfTime->getValue();
         $histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
-        if (ini_get('date.timezone')) {
-			$dateTimeZoneDEF = new \DateTimeZone(ini_get('date.timezone'));
-		} else {
-			$dateTimeZoneDEF = new \DateTimeZone(date_default_timezone_get());
-		}
-		$dateTimeZoneUTC = new \DateTimeZone("UTC");
-		$dateTimeUTC = new \DateTime("now", $dateTimeZoneUTC);
-		$dateTimeDEF = new \DateTime("now", $dateTimeZoneDEF);
-		$timeZoneDiff = $dateTimeZoneDEF->getOffset($dateTimeDEF)-$dateTimeZoneUTC->getOffset($dateTimeUTC);
+	$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
         $sql = "SELECT COUNT(*)
                 FROM " . \Piwik\Common::prefixTable("log_visit") . "
@@ -55,7 +62,6 @@ class API extends \Piwik\Plugin\API {
         $visits = \Piwik\Db::fetchOne($sql, array(
             $idSite, $lastMinutes+($timeZoneDiff/60)
         ));
-		
 		$sql = "SELECT MAX(g.concurrent) AS maxvisit
                 FROM (
                   SELECT    COUNT(idvisit) as concurrent

@@ -52,9 +52,9 @@ class Controller extends \Piwik\Plugin\Controller
         $view = new View('@PerformanceMonitor/summary.twig');
         $this->setGeneralVariablesView($view);
        	$view->configuredSites = array();
-       	foreach (API::getSites() as &$site)
+       	foreach (API::getSites() as $site)
         {
-       		foreach ($settings->sites->getValue() as &$confSite)
+       		foreach ($settings->sites->getValue() as $confSite)
         	{
         		if ($site['id'] == $confSite)
 	        	{
