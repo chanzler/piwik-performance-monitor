@@ -1,5 +1,6 @@
 <div class="dynameter-widget">
   <div class="dynameter"></div>
-  <div class="legend" class="legend"><div class="legend-min">0</div><div class="legend-max">{{ maxVisits }}</div></div>
+  <div class="legend" class="legend"><div class="legend-min">0</div><div class="legend-max">{{ maxVisits }}</div>
+  <div class="odometer" style="display:block;position:relative;left:85px;top:-55px;z-index:10;font-size:1.5em;font-weight:bold;"></div></div>
 </div>
 <script type="text/javascript">$(document).ready(function () {require('piwik/PerformanceMonitor').initSimpleRealtimeVisitorWidget({{ refreshInterval }});});</script>

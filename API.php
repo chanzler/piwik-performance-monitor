@@ -31,12 +31,12 @@ class API extends \Piwik\Plugin\API {
      * @param int $lastDays
      * @return int
      */
-    public static function getVisitorCounter($idSite, $lastMinutes = 30)
+    public static function getVisitorCounter($idSite)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('PerformanceMonitor');
-        $lastMinutes = (int)$lastMinutes;
-        $periodOfTime = (int)$settings->periodOfTime->getValue();
+        $lastMinutes = (int)$settings->currPeriodOfTime->getValue();
+        $histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
         if (ini_get('date.timezone')) {
 			$dateTimeZoneDEF = new \DateTimeZone(ini_get('date.timezone'));
 		} else {
@@ -47,7 +47,16 @@ class API extends \Piwik\Plugin\API {
 		$dateTimeDEF = new \DateTime("now", $dateTimeZoneDEF);
 		$timeZoneDiff = $dateTimeZoneDEF->getOffset($dateTimeDEF)-$dateTimeZoneUTC->getOffset($dateTimeUTC);
 
-        $sql = "SELECT MAX(g.concurrent) AS maxvisit
+        $sql = "SELECT COUNT(*)
+                FROM " . \Piwik\Common::prefixTable("log_visit") . "
+                WHERE idsite = ?
+                AND DATE_SUB(NOW(), INTERVAL ? MINUTE) < visit_last_action_time";
+
+        $visits = \Piwik\Db::fetchOne($sql, array(
+            $idSite, $lastMinutes+($timeZoneDiff/60)
+        ));
+		
+		$sql = "SELECT MAX(g.concurrent) AS maxvisit
                 FROM (
                   SELECT    COUNT(idvisit) as concurrent
                   FROM      ". \Piwik\Common::prefixTable("log_visit") . "
@@ -57,18 +66,11 @@ class API extends \Piwik\Plugin\API {
         ) g";
 
         $maxvisits = \Piwik\Db::fetchOne($sql, array(
-            $periodOfTime, $idSite, $lastMinutes * 60
+            $histPeriodOfTime, $idSite, $lastMinutes * 60
         ));
-
-        $sql = "SELECT COUNT(*)
-                FROM " . \Piwik\Common::prefixTable("log_visit") . "
-                WHERE idsite = ?
-                AND DATE_SUB(NOW(), INTERVAL ? MINUTE) < visit_last_action_time";
-
-        $visits = \Piwik\Db::fetchOne($sql, array(
-            $idSite, $lastMinutes+($timeZoneDiff/60)
-        ));
-
+		
+        if ($maxvisits < $visits) $maxvisits = $visits;
+		
         return array(
             'maxvisits' => (int)$maxvisits,
             'visits' => (int)$visits

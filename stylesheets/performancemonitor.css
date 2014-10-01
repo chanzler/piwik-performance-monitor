@@ -90,12 +90,13 @@ div.dm-wrapperDiv div.dm-innerDiv p {
   overflow: hidden;
   text-align: center;
 }
-div.dm-wrapperDiv div.dm-innerDiv p.dm-valueP {
+div.dm-wrapperDiv div.dm-innerDiv p.odometer {
   font-size: 23px !important;
   line-height: .85 !important;
 }
 div.dm-wrapperDiv div.dm-innerDiv p.dm-unitP {
   margin-top: 0;
+  padding-top: 30px;
   font-size: 75%;
   font-weight: normal;
 }
