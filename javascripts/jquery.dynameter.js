@@ -116,10 +116,10 @@
                 var $innerDiv = $this.find('div.dm-innerDiv');
 
                 //$innerDiv.append('<p class="dm-valueP">' + settings.value + '</p>');
-                if (settings.unit) {
-                    $innerDiv.append('<p class="dm-unitP">' + settings.unit + '</p>');
-                }
-                $innerDiv.append('<p class="dm-labelP">' + settings.label + '</p>');
+                //if (settings.unit) {
+                //    $innerDiv.append('<p class="dm-unitP">' + settings.unit + '</p>');
+                //}
+                //$innerDiv.append('<p class="dm-labelP">' + settings.label + '</p>');
 
                 //var $valueP = $this.find('p.dm-valueP');
                 var $unitP = $this.find('p.dm-unitP');

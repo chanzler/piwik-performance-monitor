@@ -12,9 +12,13 @@
         "SettingsHPOTHelp": "Enter a number which is >= 1 and <= 30",
         "SettingsSites": "Sites in overview",
         "SettingsSitesDescription": "Defines which sites are displayed in the overview.",
-        "Description": "The index is calculated by the number of visits in the last 30 minutes compared to the configured timespan.",
+        "Description": "Key performance indicators of your websites at a glance.",
         "PerformanceSummary": "Performance Summary",
         "TopLinkTooltip": "Show an overview of all sites performance",
+        "Concurrents": "Concurrents",
+        "EngagedTime": "Engaged Time",
+        "BounceRate": "Bounce Rate",
+        "Actions": "Actions/Visit",
         "WidgetName": "Performance monitor"
     }
 }

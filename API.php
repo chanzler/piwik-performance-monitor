@@ -14,6 +14,7 @@ use Piwik\Settings\SystemSetting;
 use Piwik\Settings\UserSetting;
 use Piwik\Settings\Manager as SettingsManager;
 use Piwik\Site;
+use Piwik\Plugins\VisitsSummary\API as VisitsSummaryAPI;
 
 
 /**
@@ -74,12 +75,21 @@ class API extends \Piwik\Plugin\API {
         $maxvisits = \Piwik\Db::fetchOne($sql, array(
             $histPeriodOfTime, $idSite, $lastMinutes * 60
         ));
-		
         if ($maxvisits < $visits) $maxvisits = $visits;
 		
+		$visitsSummary   = VisitsSummaryAPI::getInstance()->get($idSite, "day", "today", false, array('avg_time_on_site','nb_actions_per_visit','bounce_rate'));
+        $firstRow = $visitsSummary->getFirstRow();
+        if (empty($firstRow)) {
+        }
+        $engagedTime = $firstRow->getColumn('avg_time_on_site');
+        $actions = $firstRow->getColumn('nb_actions_per_visit');
+        $bounceRate = $firstRow->getColumn('bounce_rate');
         return array(
             'maxvisits' => (int)$maxvisits,
-            'visits' => (int)$visits
+            'visits' => (int)$visits,
+            'time' => (int)$engagedTime/60,
+            'actions' => (int)$actions,
+            'bouncerate' => (int)$bounceRate
         );
     }
 
