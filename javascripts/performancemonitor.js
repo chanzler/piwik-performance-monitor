@@ -47,16 +47,16 @@ $(function() {
                 unit: 'Performance Index'
             });
             $myMeter.changeValue(visitors, maxvisitors, 0);
-            concurrentOdometer = new Odometer({ el: $('.odometer')[0], theme: 'default', value: visitors });
+            concurrentOdometer = new Odometer({ el: $('.odometer')[0], format: '(.ddd),dd', theme: 'default', value: visitors });
             concurrentOdometer.render()
             concurrentOdometer.update(visitors);
-            timeOdometer = new Odometer({ el: $('.odometer')[1], theme: 'default', value: time });
+            timeOdometer = new Odometer({ el: $('.odometer')[1], format: '(.ddd),dd', theme: 'default', value: time });
             timeOdometer.render()
             timeOdometer.update(time);
-            bounceOdometer = new Odometer({ el: $('.odometer')[2], theme: 'default', value: bouncerate });
+            bounceOdometer = new Odometer({ el: $('.odometer')[2], format: '(.ddd),dd', theme: 'default', value: bouncerate });
             bounceOdometer.render()
             bounceOdometer.update(bouncerate);
-            actionsOdometer = new Odometer({ el: $('.odometer')[3], theme: 'default', value: actions });
+            actionsOdometer = new Odometer({ el: $('.odometer')[3], format: '(.ddd),dd', theme: 'default', value: actions });
             actionsOdometer.render()
             actionsOdometer.update(actions);
             $(element).find('.legend-max', element).text(maxvisitors);
@@ -96,13 +96,13 @@ $(function() {
                 value: visitors,
                 unit: 'Performance Index'
             });
-            concurrentOdometer = new Odometer({ el: $('.odometer')[0], theme: 'default', value: visitors });
+            concurrentOdometer = new Odometer({ el: $('.odometer')[0], format: '(.ddd),dd', theme: 'default', value: visitors });
             concurrentOdometer.render()
-            timeOdometer = new Odometer({ el: $('.odometer')[1], theme: 'default', value: time });
+            timeOdometer = new Odometer({ el: $('.odometer')[1], format: '(.ddd),dd', theme: 'default', value: time });
             timeOdometer.render()
-            bounceOdometer = new Odometer({ el: $('.odometer')[2], theme: 'default', value: bouncerate });
+            bounceOdometer = new Odometer({ el: $('.odometer')[2], format: '(.ddd),dd', theme: 'default', value: bouncerate });
             bounceOdometer.render()
-            actionsOdometer = new Odometer({ el: $('.odometer')[3], theme: 'default', value: actions });
+            actionsOdometer = new Odometer({ el: $('.odometer')[3], format: '(.ddd),dd', theme: 'default', value: actions });
             actionsOdometer.render()
             $('.dynameter-widget').each(function() {
                 var $this = $(this),

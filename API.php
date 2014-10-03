@@ -88,7 +88,7 @@ class API extends \Piwik\Plugin\API {
             'maxvisits' => (int)$maxvisits,
             'visits' => (int)$visits,
             'time' => (int)$engagedTime/60,
-            'actions' => (int)$actions,
+            'actions' => $actions,
             'bouncerate' => (int)$bounceRate
         );
     }
