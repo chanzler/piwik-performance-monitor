@@ -63,17 +63,12 @@ class API extends \Piwik\Plugin\API {
         $visits = \Piwik\Db::fetchOne($sql, array(
             $idSite, $lastMinutes+($timeZoneDiff/60)
         ));
-		$sql = "SELECT MAX(g.concurrent) AS maxvisit
-                FROM (
-                  SELECT    COUNT(idvisit) as concurrent
-                  FROM      ". \Piwik\Common::prefixTable("log_visit") . "
-                  WHERE     DATE_SUB(NOW(), INTERVAL ? DAY) < visit_last_action_time
-                  AND       idsite = ?
-                  GROUP BY  round(UNIX_TIMESTAMP(visit_last_action_time) / ?)
-        ) g";
+		$sql = "SELECT maxvisits
+                  FROM      ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
+                  WHERE     idsite = ?";
 
         $maxvisits = \Piwik\Db::fetchOne($sql, array(
-            $histPeriodOfTime, $idSite, $lastMinutes * 60
+            $idSite
         ));
         if ($maxvisits < $visits) $maxvisits = $visits;
 		
