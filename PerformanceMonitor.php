@@ -54,12 +54,12 @@ class PerformanceMonitor extends \Piwik\Plugin
         try {
             $sql = "CREATE TABLE " . Common::prefixTable('performancemonitor_maxvisits') . " (
                         idsite INT( 10 ) NOT NULL ,
-                        maxvisits INT( 11 ) NOT NULL ,
+                        maxvisits INT( 11 ) NOT NULL
                     )";
             \Piwik\Db::exec($sql);
         } catch (Exception $e) {
             // ignore error if table already exists (1050 code is for 'table already exists')
-            if (!Db::get()->isErrNo($e, '1050')) {
+            if (!\Piwik\Db::get()->isErrNo($e, '1050')) {
                 throw $e;
             }
         }
