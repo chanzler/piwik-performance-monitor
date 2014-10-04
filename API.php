@@ -53,7 +53,7 @@ class API extends \Piwik\Plugin\API {
         $timeZone = (int)$settings->currPeriodOfTime->getValue();
         $lastMinutes = (int)$settings->currPeriodOfTime->getValue();
         $histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
-	$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
+		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
         $sql = "SELECT COUNT(*)
                 FROM " . \Piwik\Common::prefixTable("log_visit") . "
