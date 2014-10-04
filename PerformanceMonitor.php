@@ -47,4 +47,25 @@ class PerformanceMonitor extends \Piwik\Plugin
         WidgetsList::add( 'Live!', 'PerformanceMonitor_WidgetName', 'PerformanceMonitor', 'index');
     }
 
+    public function install()
+    {
+        try {
+            $sql = "CREATE TABLE " . Common::prefixTable('performancemonitor_maxvisits') . " (
+                        idsite INT( 10 ) NOT NULL ,
+                        maxvisits INT( 11 ) NOT NULL ,
+                    )";
+            Db::exec($sql);
+        } catch (Exception $e) {
+            // ignore error if table already exists (1050 code is for 'table already exists')
+            if (!Db::get()->isErrNo($e, '1050')) {
+                throw $e;
+            }
+        }
+    }
+
+    public function uninstall()
+    {
+        Db::dropTables(Common::prefixTable('performancemonitor_maxvisits'));
+    }
+
 }
