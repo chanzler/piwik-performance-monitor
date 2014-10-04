@@ -9,6 +9,8 @@
 namespace Piwik\Plugins\PerformanceMonitor;
 
 use Piwik\WidgetsList;
+use Piwik\Common;
+use \Exception;
 
 /**
  */
