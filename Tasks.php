@@ -42,8 +42,8 @@ class Tasks extends \Piwik\Plugin\Tasks
 	                     (idsite, maxvisits) VALUES (?, ?)";
 			\Piwik\Db::query($insert, array(
 	            $idSite, $maxvisits
-	        ));
-	    }
+			));
+		}
     }
 
     public function myTaskWithParam($param)
