@@ -63,6 +63,7 @@ class PerformanceMonitor extends \Piwik\Plugin
                 throw $e;
             }
         }
+		Tasks::getMaxVisits();
     }
 
     public function uninstall()
