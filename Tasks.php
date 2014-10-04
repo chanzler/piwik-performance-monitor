@@ -46,8 +46,4 @@ class Tasks extends \Piwik\Plugin\Tasks
 		}
     }
 
-    public function myTaskWithParam($param)
-    {
-        // do something
-    }
 }
