@@ -27,6 +27,8 @@ Install it via Piwik Marketplace OR install manually:
 
 3. You will now find the widget under the Live! section.
 
+4. When you update: As there have been made several changes in v0.2.0 you might have to clear your cache (console core:clear-caches) 
+
 ## FAQ
 
 ###Features
