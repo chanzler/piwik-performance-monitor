@@ -11,12 +11,12 @@ div.dm-wrapperDiv {
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  margin: 0;
+  margin: 0 auto 0 10px;
   padding: 0;
   zoom: 1;
   overflow: hidden;
-  width: 200px;
-  height: 100px;
+  width: 130px;
+  height: 50px;
   font-family: Arial, Helvetica, sans-serif !important;
   font-size: 16px;
   font-weight: bold;
@@ -38,15 +38,15 @@ div.dm-wrapperDiv div {
 }
 div.dm-wrapperDiv div.dm-bgClrDiv,
 div.dm-wrapperDiv div.dm-maskDiv {
-  width: 200px;
-  height: 100px;
+  width: 100px;
+  height: 50px;
 }
 div.dm-wrapperDiv div.dm-bgClrDiv,
 div.dm-wrapperDiv div.dm-maskDiv {
-  -webkit-border-radius: 100px 100px 0 0;
-  -moz-border-radius: 100px 100px 0 0;
-  -ms-border-radius: 100px 100px 0 0;
-  border-radius: 100px 100px 0 0;
+  -webkit-border-radius: 50px 50px 0 0;
+  -moz-border-radius: 50px 50px 0 0;
+  -ms-border-radius: 50px 50px 0 0;
+  border-radius: 50px 50px 0 0;
   border: 2px solid #999999;
   border-bottom: 0;
   -webkit-transform-origin: center bottom;
@@ -70,13 +70,13 @@ div.dm-wrapperDiv div.dm-maskDiv {
 div.dm-wrapperDiv div.dm-innerDiv {
   bottom: 0;
   left: 20px;
-  -webkit-border-radius: 80px 80px 0 0;
-  -moz-border-radius: 80px 80px 0 0;
-  -ms-border-radius: 80px 80px 0 0;
-  border-radius: 80px 80px 0 0;
+  -webkit-border-radius: 30px 30px 0 0;
+  -moz-border-radius: 30px 30px 0 0;
+  -ms-border-radius: 30px 30px 0 0;
+  border-radius: 30px 30px 0 0;
   border-bottom: 1px solid #eeeeee;
-  width: 160px;
-  height: 80px;
+  width: 60px;
+  height: 30px;
   padding-top: .7em;
   background-color: #eeeeee;
   text-align: center;
@@ -90,12 +90,13 @@ div.dm-wrapperDiv div.dm-innerDiv p {
   overflow: hidden;
   text-align: center;
 }
-div.dm-wrapperDiv div.dm-innerDiv p.dm-valueP {
+div.dm-wrapperDiv div.dm-innerDiv p.odometer {
   font-size: 23px !important;
   line-height: .85 !important;
 }
 div.dm-wrapperDiv div.dm-innerDiv p.dm-unitP {
   margin-top: 0;
+  padding-top: 10px;
   font-size: 75%;
   font-weight: normal;
 }
@@ -104,21 +105,36 @@ div.dm-wrapperDiv div.dm-innerDiv p.dm-labelP {
 }
 .dynameter-widget {
   margin: 10px auto 10px auto;
-  width: 200px;
+  width: 300px;
 }
-.legend {
-  width: 200px;
+.dynameter {
+  float:left;
+  width: 130px;
 }
-.legend-min {
-  float: left;
+.odo {
+  float:left;
+  width: 120px;
+  margin: 0 20px 0 20px;
 }
-.legend-max {
-  float: right;
+div.concurrents{
+  font-size:33px;
+  font-weight:bold;
+}
+div.bouncerate, div.engagedtime, div.actions{
+  float:left;
+  font-size:20px;
+  font-weight:bold;
+  width: 80px;
+  margin: 0 10px 10px 10px;
+}
+h4.odoh4{
+  font-size:9px;
+  margin: -3px 0 -3px 0;
 }
 .widgetIframe {
   width:350px;
-  height:215px;
-  float:left
+  height:205px;
+  float:left;
 }
 .frameHeader {
   margin-left:20px;

@@ -1,5 +1,8 @@
 <div class="dynameter-widget">
-  <div class="dynameter" data-last-minutes="30"></div>
-  <div class="legend" class="legend"><div class="legend-min">0</div><div class="legend-max">{{ maxVisits }}</div></div>
+  <div class="odo concurrents"><h4 class="odoh4">{{ 'PerformanceMonitor_Concurrents'|translate }}</h4><div class="odometer"></div></div>
+  <div class="dynameter"></div><br clear="all"><hr>
+  <div class="odo engagedtime"><h4 class="odoh4">{{ 'PerformanceMonitor_EngagedTime'|translate }}</h4><div class="odometer" style="float:left"></div><div style="font-size:10px;margin-top:6px">min</div></div>
+  <div class="odo bouncerate"><h4 class="odoh4">{{ 'PerformanceMonitor_BounceRate'|translate }}</h4><div class="odometer"></div>%</div>
+  <div class="odo actions"><h4 class="odoh4">{{ 'PerformanceMonitor_Actions'|translate }}</h4><div class="odometer"></div></div>
 </div>
-<script type="text/javascript">$(document).ready(function () {require('piwik/PerformanceMonitor').initSimpleRealtimeVisitorWidget();});</script>
+<script type="text/javascript">$(document).ready(function () {require('piwik/PerformanceMonitor').initSimpleRealtimeVisitorWidget({{ refreshInterval }});});</script>

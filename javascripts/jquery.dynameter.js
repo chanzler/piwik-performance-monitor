@@ -24,13 +24,15 @@
         settings._clrRef1 = 'warn';
         settings._clrRef2 = 'error';
 
+        var myOdometer;
+
         this.changeValue =  function ( myVal, myMax, myMin )  { 
             var $this = $(this);
             var myMin = $this.data('dm-min');
             $this.data('dm-range', myMax - myMin);
             var myRange = $this.data('dm-range');
             // Update value text.
-            $this.find('.dm-innerDiv .dm-valueP').html(myVal);
+            //$this.find('.dm-innerDiv .dm-valueP').html(myVal);
             // Ensure value is in-range.
             if (myVal < myMin) {
                 myVal = myMin;
@@ -50,6 +52,7 @@
             // Set/update dm-value attr.
             $this.data('dm-value', myVal);
             $this.data('dm-max', myMax);
+
             // console.log('[dynameter.changeValue] Method called.  myVal = ' + myVal);
         };
 
@@ -62,7 +65,7 @@
 	        $this.data('dm-range', myMax - myMin);
                 var myRange = $this.data('dm-range');
                 // Update value text.
-                $this.find('.dm-innerDiv .dm-valueP').html(myVal);
+                //$this.find('.dm-innerDiv .dm-valueP').html(myVal);
                 // Rotate mask div.
                 var myRelVal = myVal - myMin;
                 var myDeg = myRelVal / myRange * 180;
@@ -82,7 +85,7 @@
                 // Skip init if settings are invalid.
                 if (settings.value < settings.min ||
                     settings.value > settings.max ||
-                    settings.min >= settings.max) {
+                    settings.min > settings.max) {
                     throw new Error("DynaMeter initialization failed -- invalid value/min/max settings.");
                 }
                 var currClrRef;
@@ -112,13 +115,13 @@
                 var $maskDiv = $this.find('div.dm-maskDiv');
                 var $innerDiv = $this.find('div.dm-innerDiv');
 
-                $innerDiv.append('<p class="dm-valueP">' + settings.value + '</p>');
-                if (settings.unit) {
-                    $innerDiv.append('<p class="dm-unitP">' + settings.unit + '</p>');
-                }
-                $innerDiv.append('<p class="dm-labelP">' + settings.label + '</p>');
+                //$innerDiv.append('<p class="dm-valueP">' + settings.value + '</p>');
+                //if (settings.unit) {
+                //    $innerDiv.append('<p class="dm-unitP">' + settings.unit + '</p>');
+                //}
+                //$innerDiv.append('<p class="dm-labelP">' + settings.label + '</p>');
 
-                var $valueP = $this.find('p.dm-valueP');
+                //var $valueP = $this.find('p.dm-valueP');
                 var $unitP = $this.find('p.dm-unitP');
                 var $labelP = $this.find('p.dm-labelP');
 
@@ -164,6 +167,7 @@
                         })
                         .prependTo($this);
                 }
+
 
                 //console.log('[dynameter] div#' + $this.attr('id') + ' initialized.');
 

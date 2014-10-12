@@ -29,8 +29,11 @@ $(function() {
 
             var visitors = data['visits'];
             var maxvisitors = data['maxvisits'];
+            var time = data['time'];
+            var actions = data['actions'];
+            var bouncerate = data['bouncerate'];
             $(element).find('.dynameter').removeClass('dm-wrapperDiv');
-	    var $myMeter = null;
+            var $myMeter = null;
             $myMeter = $(element).find('.dynameter').dynameter({
                 label: '',
                 min: 0,
@@ -43,7 +46,19 @@ $(function() {
                 value: visitors,
                 unit: 'Performance Index'
             });
-	    $myMeter.changeValue(visitors, maxvisitors, 0);
+            $myMeter.changeValue(visitors, maxvisitors, 0);
+            concurrentOdometer = new Odometer({ el: $('.odometer')[0], format: '(.ddd),dd', theme: 'default', value: visitors });
+            concurrentOdometer.render()
+            concurrentOdometer.update(visitors);
+            timeOdometer = new Odometer({ el: $('.odometer')[1], format: '(.ddd),dd', theme: 'default', value: time });
+            timeOdometer.render()
+            timeOdometer.update(time);
+            bounceOdometer = new Odometer({ el: $('.odometer')[2], format: '(.ddd),dd', theme: 'default', value: bouncerate });
+            bounceOdometer.render()
+            bounceOdometer.update(bouncerate);
+            actionsOdometer = new Odometer({ el: $('.odometer')[3], format: '(.ddd),dd', theme: 'default', value: actions });
+            actionsOdometer.render()
+            actionsOdometer.update(actions);
             $(element).find('.legend-max', element).text(maxvisitors);
             // schedule another request
             setTimeout(function () { refreshWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
@@ -52,7 +67,7 @@ $(function() {
     };
 
     var exports = require("piwik/PerformanceMonitor");
-    exports.initSimpleRealtimeVisitorWidget = function () {
+    exports.initSimpleRealtimeVisitorWidget = function (refreshInterval) {
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
@@ -66,7 +81,10 @@ $(function() {
 
             var visitors = data['visits'];
             var maxvisitors = data['maxvisits'];
-	    $('.dynameter').dynameter({
+            var time = data['time'];
+            var actions = data['actions'];
+            var bouncerate = data['bouncerate'];
+            $('.dynameter').dynameter({
                 label: '',
                 min: 0,
                 max: maxvisitors,
@@ -78,9 +96,17 @@ $(function() {
                 value: visitors,
                 unit: 'Performance Index'
             });
+            concurrentOdometer = new Odometer({ el: $('.odometer')[0], format: '(.ddd),dd', theme: 'default', value: visitors });
+            concurrentOdometer.render()
+            timeOdometer = new Odometer({ el: $('.odometer')[1], format: '(.ddd),dd', theme: 'default', value: time });
+            timeOdometer.render()
+            bounceOdometer = new Odometer({ el: $('.odometer')[2], format: '(.ddd),dd', theme: 'default', value: bouncerate });
+            bounceOdometer.render()
+            actionsOdometer = new Odometer({ el: $('.odometer')[3], format: '(.ddd),dd', theme: 'default', value: actions });
+            actionsOdometer.render()
             $('.dynameter-widget').each(function() {
                 var $this = $(this),
-                   refreshAfterXSecs = 30;
+                   refreshAfterXSecs = refreshInterval;
                 setTimeout(function() { refreshWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
             });
         });
