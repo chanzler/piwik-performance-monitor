@@ -32,8 +32,8 @@ Install it via Piwik Marketplace OR install manually:
 ###Features
 Here is a list of features that are included in this project:
 
-* Define new widget ("Performance Monitor")
-* Add an item to the top navigation ("Performance overview") which displays the performance monitor widget for all your configured sites.
+* Live widget ("Performance Monitor") with key performance indices
+* Add an item to the top navigation ("Performance overview") which displays the performance monitor widget for all your sites (configurable).
 
 ###Configuration
 *Refresh interval*: Defines how often the widgets will be updated. Every 30 seconds is a good value to choose.
@@ -48,6 +48,7 @@ Here is a list of features that are included in this project:
 
 ### 0.2.0 Second Beta
 * made the plugin configurable by settings
+* added more key performance indices
 * performance overview now links to the dashboards
 * fixed the timezone bug (configure timezone for each site properly)
 * fixed several minor bugs

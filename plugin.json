@@ -1,7 +1,7 @@
 {
     "name": "PerformanceMonitor",
     "version": "0.2.0",
-    "description": "Displays the performance index of a site as a widget and adds an performance overview page to the top navigation. The index is calculated by the number of visits in the last 30 minutes compared to a 30 day timespan. Auto-refreshes every 30 seconds.",
+    "description": "Displays the performance index of a site as a widget and adds an performance overview page to the top navigation. The index is calculated by the number of visits in the last n minutes compared to a configurable day timespan. Auto-refresh interval can be configured.",
     "theme": false,
     "keywords": [
         "performance",
