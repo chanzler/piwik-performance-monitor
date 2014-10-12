@@ -11,6 +11,9 @@
     ],
     "homepage": "http:\/\/github.com\/chanzler\/piwik-performance-monitor",
     "license": "GPL-3.0+",
+	"donate": {
+        "paypal": "paypal@familiekanzler.de"
+	},
     "authors": [
         {
             "name": "Frank Kanzler",
