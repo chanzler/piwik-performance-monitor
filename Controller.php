@@ -46,9 +46,6 @@ class Controller extends \Piwik\Plugin\Controller
         Piwik::checkUserHasSomeViewAccess();
         $settings = new Settings('PerformanceMonitor');
         
-        $date   = Common::getRequestVar('date', 'today');
-        $period = Common::getRequestVar('period', 'day');
-
         $view = new View('@PerformanceMonitor/summary.twig');
         $this->setGeneralVariablesView($view);
        	$view->configuredSites = array();
