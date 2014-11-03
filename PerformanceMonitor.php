@@ -100,8 +100,8 @@ class PerformanceMonitor extends \Piwik\Plugin
 	        			$idSite, $maxvisits
 	        	));
             } catch (Exception $e) {
-            // ignore error if table already exists (1050 code is for 'table already exists')
-	            if (!\Piwik\Db::get()->isErrNo($e, '1050')) {
+	            // ignore error
+	            if (!\Piwik\Db::get()->isErrNo($e, '1048')) {
 	                throw $e;
 	            }
 	        }

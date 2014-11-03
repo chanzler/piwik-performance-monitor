@@ -37,7 +37,9 @@ class Tasks extends \Piwik\Plugin\Tasks
 	        $maxvisits = \Piwik\Db::fetchOne($sql, array(
 	            $histPeriodOfTime, $idSite, $lastMinutes * 60
 	        ));
-	
+
+	        \Piwik\Db::deleteAllRows(Common::prefixTable('performancemonitor_maxvisits'), "WHERE idsite = ?", "", 100000, array($idSite));
+			
 			$insert = "INSERT INTO ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
 	                     (idsite, maxvisits) VALUES (?, ?)";
 			\Piwik\Db::query($insert, array(
