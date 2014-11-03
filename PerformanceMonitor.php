@@ -95,9 +95,16 @@ class PerformanceMonitor extends \Piwik\Plugin
 	        ));
         	$insert = "INSERT INTO ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
 		                     (idsite, maxvisits) VALUES (?, ?)";
-//        	\Piwik\Db::query($insert, array(
-//        			$idSite, $maxvisits
-//        	));
+	        try {
+	      	  	\Piwik\Db::query($insert, array(
+	        			$idSite, $maxvisits
+	        	));
+            } catch (Exception $e) {
+            // ignore error if table already exists (1050 code is for 'table already exists')
+	            if (!\Piwik\Db::get()->isErrNo($e, '1050')) {
+	                throw $e;
+	            }
+	        }
         }        
     }
 
