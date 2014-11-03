@@ -48,7 +48,7 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
-### 0.2.2 Second Beta
+### 0.2.2 Bugfix Release
 * fixed an installation bug
 
 ### 0.2.0 Second Beta
