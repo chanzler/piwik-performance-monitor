@@ -48,6 +48,9 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.2.1 Second Beta
+* fixed an installation bug
+
 ### 0.2.0 Second Beta
 * made the plugin configurable by settings
 * added more key performance indices
