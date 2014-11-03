@@ -23,16 +23,8 @@ class Tasks extends \Piwik\Plugin\Tasks
         {
 			$idSite = $site['id'];
 			$settings = new Settings('PerformanceMonitor');
-		        if ($settings->histPeriodOfTime->getValue()){
-					$histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
-		        } else {
-		        	$histPeriodOfTime = 30;
-		        }
-		        if ($settings->currPeriodOfTime->getValue()){
-		        	$lastMinutes = (int)$settings->currPeriodOfTime->getValue();
-	        	} else {
-		        	$lastMinutes = 30;
-		        }
+			$histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
+        	$lastMinutes = (int)$settings->currPeriodOfTime->getValue();
 			$sql = "SELECT MAX(g.concurrent) AS maxvisit
 	                FROM (
 	                  SELECT    COUNT(idvisit) as concurrent
@@ -53,5 +45,4 @@ class Tasks extends \Piwik\Plugin\Tasks
 			));
 		}
     }
-
 }

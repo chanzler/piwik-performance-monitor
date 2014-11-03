@@ -63,7 +63,42 @@ class PerformanceMonitor extends \Piwik\Plugin
                 throw $e;
             }
         }
-		Tasks::getMaxVisits();
+       	foreach (API::getSites() as $site)
+        {
+	        $idSite = $site['id'];
+	        $lastMinutes = 30;
+	        $histPeriodOfTime = 30;
+	        $settings = new Settings('PerformanceMonitor');
+	        if ($settings != null) {
+	        	if ($settings->histPeriodOfTime->getValue()){
+	        		$histPeriodOfTime = (int)$settings->histPeriodOfTime->getValue();
+	        	} else {
+	        		$histPeriodOfTime = 30;
+	        	}
+	        	if ($settings->currPeriodOfTime->getValue()){
+	        		$lastMinutes = (int)$settings->currPeriodOfTime->getValue();
+	        	} else {
+	        		$lastMinutes = 30;
+	        	}
+	        }
+	        $sql = "SELECT MAX(g.concurrent) AS maxvisit
+		                FROM (
+		                  SELECT    COUNT(idvisit) as concurrent
+		                  FROM      ". \Piwik\Common::prefixTable("log_visit") . "
+		                  WHERE     DATE_SUB(NOW(), INTERVAL ? DAY) < visit_last_action_time
+		                  AND       idsite = ?
+		                  GROUP BY  round(UNIX_TIMESTAMP(visit_last_action_time) / ?)
+		        ) g";
+	        
+	        $maxvisits = \Piwik\Db::fetchOne($sql, array(
+	        		$histPeriodOfTime, $idSite, $lastMinutes * 60
+	        ));
+        	$insert = "INSERT INTO ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
+		                     (idsite, maxvisits) VALUES (?, ?)";
+//        	\Piwik\Db::query($insert, array(
+//        			$idSite, $maxvisits
+//        	));
+        }        
     }
 
     public function uninstall()
