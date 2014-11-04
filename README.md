@@ -48,6 +48,9 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.2.4 Bugfix Release
+* reengineering of scheduled task
+
 ### 0.2.3 Bugfix Release
 * fixed bug in scheduled task
 
