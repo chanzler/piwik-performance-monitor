@@ -41,7 +41,7 @@ class Tasks extends \Piwik\Plugin\Tasks
 			$update = "UPDATE ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
 		               SET maxvisits = ? WHERE idsite = ?";
 			\Piwik\Db::query($update, array(
-	        			$maxvisits||0, $idSite
+	        			($maxvisits)?$maxvisits:0, $idSite
 			));
 
 
