@@ -48,6 +48,9 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.2.3 Bugfix Release
+* fixed bug in scheduled task
+
 ### 0.2.2 Bugfix Release
 * fixed an installation bug
 
