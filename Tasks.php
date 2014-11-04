@@ -38,20 +38,13 @@ class Tasks extends \Piwik\Plugin\Tasks
 	            $histPeriodOfTime, $idSite, $lastMinutes * 60
 	        ));
 
-	        \Piwik\Db::deleteAllRows(\Piwik\Common::prefixTable('performancemonitor_maxvisits'), "WHERE idsite = ?", "", 100000, array($idSite));
-			
-			$insert = "INSERT INTO ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
-	                     (idsite, maxvisits) VALUES (?, ?)";
-	        try {
-	      	  	\Piwik\Db::query($insert, array(
-	        			$idSite, $maxvisits
-	        	));
-            } catch (Exception $e) {
-	            // ignore error
-	            if (!\Piwik\Db::get()->isErrNo($e, '1048')) {
-	                throw $e;
-	            }
-	        }
+			$update = "UPDATE ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
+		               SET maxvisits = ? WHERE idsite = ?";
+			\Piwik\Db::query($update, array(
+	        			$maxvisits||0, $idSite
+			));
+
+
 		}
     }
 }
