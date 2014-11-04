@@ -42,9 +42,16 @@ class Tasks extends \Piwik\Plugin\Tasks
 			
 			$insert = "INSERT INTO ". \Piwik\Common::prefixTable("performancemonitor_maxvisits") . "
 	                     (idsite, maxvisits) VALUES (?, ?)";
-			\Piwik\Db::query($insert, array(
-	            $idSite, $maxvisits
-			));
+	        try {
+	      	  	\Piwik\Db::query($insert, array(
+	        			$idSite, $maxvisits
+	        	));
+            } catch (Exception $e) {
+	            // ignore error
+	            if (!\Piwik\Db::get()->isErrNo($e, '1048')) {
+	                throw $e;
+	            }
+	        }
 		}
     }
 }
