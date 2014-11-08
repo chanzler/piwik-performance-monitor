@@ -30,6 +30,9 @@ class API extends \Piwik\Plugin\API {
             			return false; // A UTC timestamp was returned -- bail out!
         		}
     		}
+			if (preg_match("/^UTC[-+]*/", $origin_tz)){
+				return(substr($origin_tz, 3));
+    		}
     		$origin_dtz = new \DateTimeZone($origin_tz);
     		$remote_dtz = new \DateTimeZone($remote_tz);
     		$origin_dt = new \DateTime("now", $origin_dtz);

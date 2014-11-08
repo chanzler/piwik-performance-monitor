@@ -57,6 +57,11 @@ class PerformanceMonitor extends \Piwik\Plugin
                         maxvisits INT( 11 ) NOT NULL
                     )";
             \Piwik\Db::exec($sql);
+			$unique = "ALTER TABLE " . Common::prefixTable('performancemonitor_maxvisits') . " ADD UNIQUE (
+						'idsite' ,
+						'maxvisits'
+						);";
+            \Piwik\Db::exec($unique);
         } catch (Exception $e) {
             // ignore error if table already exists (1050 code is for 'table already exists')
             if (!\Piwik\Db::get()->isErrNo($e, '1050')) {
