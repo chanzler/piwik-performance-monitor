@@ -48,6 +48,9 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.2.5 Bugfix Release
+* fixed bug with timezones that match /^UTC[+-]*/
+
 ### 0.2.4 Bugfix Release
 * reengineering of scheduled task
 
