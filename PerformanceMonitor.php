@@ -58,8 +58,8 @@ class PerformanceMonitor extends \Piwik\Plugin
                     )";
             \Piwik\Db::exec($sql);
 			$unique = "ALTER TABLE " . Common::prefixTable('performancemonitor_maxvisits') . " ADD UNIQUE (
-						\"idsite\" ,
-						\"maxvisits\"
+						idsite ,
+						maxvisits
 						);";
             \Piwik\Db::exec($unique);
         } catch (Exception $e) {
