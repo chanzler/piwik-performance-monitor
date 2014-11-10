@@ -61,7 +61,7 @@ class API extends \Piwik\Plugin\API {
         $sql = "SELECT COUNT(*)
                 FROM " . \Piwik\Common::prefixTable("log_visit") . "
                 WHERE idsite = ?
-                AND DATE_SUB(NOW(), INTERVAL ? MINUTE) < visit_last_action_time";
+                AND DATE_SUB(NOW(), INTERVAL ? MINUTE) < visit_first_action_time";
 
         $visits = \Piwik\Db::fetchOne($sql, array(
             $idSite, $lastMinutes+($timeZoneDiff/60)
