@@ -27,7 +27,10 @@ Install it via Piwik Marketplace OR install manually:
 
 3. You will now find the widget under the Live! section.
 
-4. When you update: As there have been made several changes in v0.2.0 you might have to clear your cache (console core:clear-caches) 
+4. (optional) When you update: As there have been made several changes in v0.2.0 you might have to clear your cache (console core:clear-caches)
+
+5. (optional) When you run a very large piwik installation please add the following index: 
+`ALTER TABLE piwik_log_visit ADD UNIQUE ( visit_first_action_time );` 
 
 ## FAQ
 
@@ -47,6 +50,9 @@ Here is a list of features that are included in this project:
 *Sites in overview*: Defines which sites are displayed in the overview.  
 
 ## Changelog
+
+### 0.2.6 Bugfix Release
+* changed SQL from `visit_last_action_time` to `visit_first_action_time` (be sure to add the index i mentioned in installation description if you run a very large piwik installation)
 
 ### 0.2.5 Bugfix Release
 * fixed bug with timezones that match /^UTC[+-]*/
